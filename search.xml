@@ -8,7 +8,7 @@
       <link href="/2020/02/29/Java%E5%8A%A0%E5%BC%BA%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C/"/>
       <url>/2020/02/29/Java%E5%8A%A0%E5%BC%BA%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C/</url>
       
-        <content type="html"><![CDATA[<h1 id="加强compile-amp-runingtime"><a href="#加强compile-amp-runingtime" class="headerlink" title="加强compile&amp;runingtime"></a>加强compile&amp;runingtime</h1><ul><li>不要用有参构造函数</li><li>使用移位操作代替乘除法<br>a/4 == a &gt;&gt; 2<br>a/8 == a &gt;&gt; 3<br>a×4 == a &lt;&lt; 2<br>a×8 == a &lt;&lt; 3</li><li>类上申明final</li><li>for使用如下方式 <blockquote><p>for(int i=0,length = list.length; )</p></blockquote></li></ul><h1 id="减少内存开销"><a href="#减少内存开销" class="headerlink" title="减少内存开销"></a>减少内存开销</h1><ul><li>批量创建对象是使用clone方法</li><li>尽量使用局部变量</li></ul>]]></content>
+        <content type="html"><![CDATA[<h1 id="加强compile-amp-runingtime"><a href="#加强compile-amp-runingtime" class="headerlink" title="加强compile&amp;runingtime"></a>加强compile&amp;runingtime</h1><ul><li>不要用有参构造函数</li><li>使用移位操作代替乘除法<blockquote><p>a/4 == a &gt;&gt; 2<br>  a/8 == a &gt;&gt; 3<br>  a×4 == a &lt;&lt; 2<br>  a×8 == a &lt;&lt; 3</p></blockquote></li><li>类上申明final</li><li>for使用如下方式 <blockquote><p>for(int i=0,length = list.length; )</p></blockquote></li></ul><h1 id="减少内存开销"><a href="#减少内存开销" class="headerlink" title="减少内存开销"></a>减少内存开销</h1><ul><li>批量创建对象是使用clone方法</li><li>尽量使用局部变量</li></ul>]]></content>
       
       
       

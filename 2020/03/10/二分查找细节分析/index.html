@@ -14,19 +14,25 @@
 <meta name="author" content="D0MA4T2" />
 
 
-    
-    
 
-
-<meta name="description" content="技术、生活">
-<meta property="og:type" content="website">
-<meta property="og:title" content="D0MA4T2&#39;s Blog">
-<meta property="og:url" content="http://hblog.colorfulboxes.cn/index.html">
+<meta name="description" content="思路我相信对很多读者朋友来说，编写二分查找的算法代码属于玄学编程，虽然看起来很简单，就是会出错，要么会漏个等号，要么少加个 1。 不要气馁，因为二分查找其实并不简单。看看 Knuth 大佬（发明 KMP 算法的那位）怎么说的： Although the basic idea of binary search is comparatively straightforward,the details">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二分查找细节分析">
+<meta property="og:url" content="http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="D0MA4T2&#39;s Blog">
-<meta property="og:description" content="技术、生活">
+<meta property="og:description" content="思路我相信对很多读者朋友来说，编写二分查找的算法代码属于玄学编程，虽然看起来很简单，就是会出错，要么会漏个等号，要么少加个 1。 不要气馁，因为二分查找其实并不简单。看看 Knuth 大佬（发明 KMP 算法的那位）怎么说的： Although the basic idea of binary search is comparatively straightforward,the details">
+<meta property="og:image" content="https://pic.leetcode-cn.com/c53e309f6591906bb643ccb2a1ace7bcff7f1eb3d788ec72979ea717f66baf71.png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/761f2acd823c960125e3dddb56f2d811da9c39455fe3f2ee00d3998048a1d6c9.jpg">
+<meta property="og:image" content="https://pic.leetcode-cn.com/6922fcf9e7ce6faae8f2c60047cb7ebf49a561887e095b46d9ea60aa0e99945b.jpg">
+<meta property="og:image" content="https://pic.leetcode-cn.com/f6b0418e62a8413a383d32d1f9be4130a1a253c3728d7ff7155cf6b626b4a53d.jpg">
+<meta property="og:image" content="https://pic.leetcode-cn.com/7a4f522758ba0a7d7934ec750d1c3121be163919a67924dbcdf0bbef8d63485a.jpg">
+<meta property="article:published_time" content="2020-03-10T12:14:37.000Z">
+<meta property="article:modified_time" content="2020-03-10T12:37:28.930Z">
 <meta property="article:author" content="D0MA4T2">
-<meta property="article:tag" content="java bigdata">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="lc&amp;nc">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.leetcode-cn.com/c53e309f6591906bb643ccb2a1ace7bcff7f1eb3d788ec72979ea717f66baf71.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,13 +62,11 @@
 
 
 
-    <style> .article { opacity: 0;} </style>
-
 
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>D0MA4T2&#39;s Blog</title>
+<title>二分查找细节分析 | D0MA4T2&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -71,8 +75,8 @@
     var yiliaConfig = {
         fancybox: true,
         animate: true,
-        isHome: true,
-        isPost: false,
+        isHome: false,
+        isPost: true,
         isArchive: false,
         isTag: false,
         isCategory: false,
@@ -250,9 +254,7 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-二分查找细节分析" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-二分查找细节分析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/" class="article-date">
@@ -270,12 +272,27 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/">二分查找细节分析</a>
+    <h1 class="article-title" itemprop="name">
+      二分查找细节分析
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/algorithm/">algorithm</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lc-nc/" rel="tag">lc&nc</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -433,530 +450,140 @@ return left - 1; // 注意</code></pre><p>}<br>1、为什么这个算法能够�
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/algorithm/">algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lc-nc/" rel="tag">lc&nc</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Java-AOP分析" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/09/Java-AOP%E5%88%86%E6%9E%90/" class="article-date">
-      <time datetime="2020-03-10T06:36:29.000Z" itemprop="datePublished">2020-03-09</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/09/Java-AOP%E5%88%86%E6%9E%90/">Java AOP分析</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h4 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h4><ul>
-<li><p>其实, 接触了这么久的 AOP, 我感觉, AOP 给人难以理解的一个关键点是它的概念比较多, 而且坑爹的是, 这些概念经过了中文翻译后, 变得面目全非, 相同的一个术语, 在不同的翻译下, 含义总有着各种莫名其妙的差别. 鉴于此, 我在本章的开头, 着重为为大家介绍一个 Spring AOP 的各项术语的基本含义. 为了术语传达的准确性, 我在接下来的叙述中, 能使用英文术语的地方, 尽量使用英文.</p>
-</li>
-<li><p>什么是 AOP<br>AOP(Aspect-Oriented Programming), 即 面向切面编程 , 它与 OOP( Object-Oriented Programming, 面向对象编程) 相辅相成, 提供了与 OOP 不同的抽象软件结构的视角.在 OOP 中, 我们以类(class)作为我们的基本单元, 而 AOP 中的基本单元是 Aspect(切面)</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java-enhance/">Java_enhance</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2020/03/09/Java-AOP%E5%88%86%E6%9E%90/#more">阅读全文 >></a>
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/">二分查找细节分析</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">D0MA4T2</a></p>
+        <p><span>发布时间:</span>2020-03-10, 05:14:37</p>
+        <p><span>最后更新:</span>2020-03-10, 05:37:28</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/" title="二分查找细节分析">http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/　　作者: D0MA4T2" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-lc经典题目分类总结" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/07/lc%E7%BB%8F%E5%85%B8%E9%A2%98%E7%9B%AE%E5%88%86%E7%B1%BB%E6%80%BB%E7%BB%93/" class="article-date">
-      <time datetime="2020-03-08T05:34:50.000Z" itemprop="datePublished">2020-03-07</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/07/lc%E7%BB%8F%E5%85%B8%E9%A2%98%E7%9B%AE%E5%88%86%E7%B1%BB%E6%80%BB%E7%BB%93/">lc经典题目分类总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/">算法刷题</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lc-nc/" rel="tag">lc&nc</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-lt题目总结" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/01/lt%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/" class="article-date">
-      <time datetime="2020-03-02T02:49:17.000Z" itemprop="datePublished">2020-03-01</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/01/lt%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/">lc题目总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>easy205. 同构字符串</p>
-</blockquote>
-<ul>
-<li>使用嵌套数组同样可以实现map映射<blockquote>
-<p>mid179. 最大数</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/">算法刷题</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lc-nc/" rel="tag">lc&nc</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2020/03/01/lt%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/#more">阅读全文 >></a>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
-      
-      <div class="clearfix"></div>
     </div>
-    
-  </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2020/03/09/Java-AOP%E5%88%86%E6%9E%90/">
+                    Java AOP分析
+                </a>
+            </div>
+        
+    </nav>
+
   
 </article>
 
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-JavaBooks" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/02/29/JavaBooks/" class="article-date">
-      <time datetime="2020-03-01T03:48:52.000Z" itemprop="datePublished">2020-02-29</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/29/JavaBooks/">JavaBooks</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
+            
         
-      
     </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
     
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/%E4%B9%A6%E7%B1%8D%E5%88%86%E4%BA%AB/">书籍分享</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
+<div class="share">
     
-  </div>
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"二分查找细节分析　| D0MA4T2's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
   
-</article>
-
-
-
-
-
-
-
-
-
-
-
+  <div id="git"></div>
+<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+<script src="https://billts.site/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "二分查找细节分析",
+  owner: "d0ma4t2",//github用户名
+  repo: "d0ma4t2.github.io",//用户存储评论的github项目名称
+  oauth: {
+    client_id: "583ab4f7cd08c977e2d1",//注册OAuth Application时生产的ClinetID
+    client_secret:"b8ee0484ae9484e0f06d42c33995e45e67810dd3",//注册OAuth Application时生成的Client Secret
+  },
+})
+gitment.render('git')
+</script>
+<!-- Gitment代码结束 -->
   
-    <article id="post-Hexo的语法收录" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/02/29/Hexo%E7%9A%84%E8%AF%AD%E6%B3%95%E6%94%B6%E5%BD%95/" class="article-date">
-      <time datetime="2020-03-01T03:44:38.000Z" itemprop="datePublished">2020-02-29</time>
-</a>
 
 
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+
+
+    <div class="scroll" id="post-nav-button">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/29/Hexo%E7%9A%84%E8%AF%AD%E6%B3%95%E6%94%B6%E5%BD%95/">Hexo的语法收录</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a>
-    </div>
 
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Hexo添加Gitment评论系统-相关问题解决" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/02/29/Hexo%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" class="article-date">
-      <time datetime="2020-02-29T22:47:15.000Z" itemprop="datePublished">2020-02-29</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/29/Hexo%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">Hexo添加Gitment评论系统&amp;相关问题解决</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="注册OAuth-Application"><a href="#注册OAuth-Application" class="headerlink" title="注册OAuth Application"></a><a href="https://github.com/settings/applications/new" target="_blank" rel="noopener">注册OAuth Application</a></h3><p><img src="https://upload-images.jianshu.io/upload_images/1319879-7cda76c0786cdf16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<blockquote>
-<p>注意:<br>1.callback URL需要填自己的博客地址 eg:<a href="https://d0ma4t2.github.io/" target="_blank" rel="noopener">https://d0ma4t2.github.io/</a><br>2.然后你会得到一个Client ID 和一个 Client secret，这个将被用于之后的用户登录</p>
-</blockquote>
-<h3 id="在yelee主题中引入Gitment"><a href="#在yelee主题中引入Gitment" class="headerlink" title="在yelee主题中引入Gitment"></a>在yelee主题中引入Gitment</h3><p>在themes/yelee/layout/_partial/post文件夹下创建git.ejs文件，并写入下边代码：</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FAQ/" rel="tag">FAQ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gitment/" rel="tag">Gitment</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2020/02/29/Hexo%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Java加强编译运行" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/02/29/Java%E5%8A%A0%E5%BC%BA%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C/" class="article-date">
-      <time datetime="2020-02-29T19:25:00.000Z" itemprop="datePublished">2020-02-29</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+            <a href="/2020/03/09/Java-AOP%E5%88%86%E6%9E%90/" title="下一篇: Java AOP分析">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/29/Java%E5%8A%A0%E5%BC%BA%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C/">Java加强编译运行</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="grammer-skills"><a href="#grammer-skills" class="headerlink" title="grammer skills"></a>grammer skills</h3><ul>
-<li>变长二维数组转定长<blockquote>
-<p>int[][] res = new ArrayList&lt;&gt;().toArray(new int[res.size()][]);</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java-enhance/">Java_enhance</a>
     </div>
 
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lc-nc/" rel="tag">lc&nc</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2020/02/29/Java%E5%8A%A0%E5%BC%BA%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/">二分查找细节分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/09/Java-AOP%E5%88%86%E6%9E%90/">Java AOP分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/07/lc%E7%BB%8F%E5%85%B8%E9%A2%98%E7%9B%AE%E5%88%86%E7%B1%BB%E6%80%BB%E7%BB%93/">lc经典题目分类总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/01/lt%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/">lc题目总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/JavaBooks/">JavaBooks</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/Hexo%E7%9A%84%E8%AF%AD%E6%B3%95%E6%94%B6%E5%BD%95/">Hexo的语法收录</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/Hexo%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">Hexo添加Gitment评论系统&相关问题解决</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/Java%E5%8A%A0%E5%BC%BA%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C/">Java加强编译运行</a></li></ul>
 
 
 
 
-
-
-
-
-
-
-
-  
-  
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">

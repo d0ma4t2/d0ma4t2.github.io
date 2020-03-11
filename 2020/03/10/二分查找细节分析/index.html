@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://pic.leetcode-cn.com/f6b0418e62a8413a383d32d1f9be4130a1a253c3728d7ff7155cf6b626b4a53d.jpg">
 <meta property="og:image" content="https://pic.leetcode-cn.com/7a4f522758ba0a7d7934ec750d1c3121be163919a67924dbcdf0bbef8d63485a.jpg">
 <meta property="article:published_time" content="2020-03-10T12:14:37.000Z">
-<meta property="article:modified_time" content="2020-03-10T12:37:28.930Z">
+<meta property="article:modified_time" content="2020-03-11T02:12:11.541Z">
 <meta property="article:author" content="D0MA4T2">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="lc&amp;nc">
@@ -302,6 +302,7 @@
         <p>思路<br>我相信对很多读者朋友来说，编写二分查找的算法代码属于玄学编程，虽然看起来很简单，就是会出错，要么会漏个等号，要么少加个 1。</p>
 <p>不要气馁，因为二分查找其实并不简单。看看 Knuth 大佬（发明 KMP 算法的那位）怎么说的：</p>
 <p>Although the basic idea of binary search is comparatively straightforward,<br>the details can be surprisingly tricky…<br>这句话可以这样理解：思路很简单，细节是魔鬼。很多人喜欢拿整型溢出的 bug 说事儿，但是二分查找真正的坑根本就不是那个细节问题，而是在于到底要给 mid 加一还是减一，while 里到底用 &lt;= 还是 &lt;。</p>
+<a id="more"></a>
 <p>你要是没有正确理解这些细节，写二分肯定就是玄学编程，有没有 bug 只能靠菩萨保佑。我特意写了一首诗来歌颂该算法，概括本文的主要内容，建议保存：<br><img src="https://pic.leetcode-cn.com/c53e309f6591906bb643ccb2a1ace7bcff7f1eb3d788ec72979ea717f66baf71.png" alt=""></p>
 <p>本文以问答的形式，探究几个最常用的二分查找场景：寻找一个数、寻找左侧边界、寻找右侧边界。第一个场景是最简单的算法形式，解决 这道题，后两个场景就是本题。</p>
 <p>本文就来探究几个最常用的二分查找场景：寻找一个数、寻找左侧边界、寻找右侧边界。而且，我们就是要深入细节，比如不等号是否应该带等号，mid 是否应该加一等等。分析这些细节的差异以及出现这些差异的原因，保证你能灵活准确地写出正确的二分查找算法。</p>
@@ -458,7 +459,7 @@ return left - 1; // 注意</code></pre><p>}<br>1、为什么这个算法能够�
         <p><span>本文标题:</span><a href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/">二分查找细节分析</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">D0MA4T2</a></p>
         <p><span>发布时间:</span>2020-03-10, 05:14:37</p>
-        <p><span>最后更新:</span>2020-03-10, 05:37:28</p>
+        <p><span>最后更新:</span>2020-03-10, 19:12:11</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/" title="二分查找细节分析">http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/</a>
             <span class="copy-path" data-clipboard-text="原文: http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/　　作者: D0MA4T2" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

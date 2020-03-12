@@ -15,19 +15,19 @@
 
 
 
-<meta name="description" content="思路  我相信对很多读者朋友来说，编写二分查找的算法代码属于玄学编程，虽然看起来很简单，就是会出错，要么会漏个等号，要么少加个 1。 不要气馁，因为二分查找其实并不简单。看看 Knuth 大佬（发明 KMP 算法的那位）怎么说的： Although the basic idea of binary search is comparatively straightforward,the detai">
+<meta name="description" content="思路  我相信对很多读者朋友来说，编写二分查找的算法代码属于玄学编程，虽然看起来很简单，就是会出错，要么会漏个等号，要么少加个 1。 不要气馁，因为二分查找其实并不简单。看看 Knuth 大佬（发明 KMP 算法的那位）怎么说的：  Although the basic idea of binary search is comparatively straightforward,the deta">
 <meta property="og:type" content="article">
 <meta property="og:title" content="二分查找细节分析">
 <meta property="og:url" content="http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="D0MA4T2&#39;s Blog">
-<meta property="og:description" content="思路  我相信对很多读者朋友来说，编写二分查找的算法代码属于玄学编程，虽然看起来很简单，就是会出错，要么会漏个等号，要么少加个 1。 不要气馁，因为二分查找其实并不简单。看看 Knuth 大佬（发明 KMP 算法的那位）怎么说的： Although the basic idea of binary search is comparatively straightforward,the detai">
+<meta property="og:description" content="思路  我相信对很多读者朋友来说，编写二分查找的算法代码属于玄学编程，虽然看起来很简单，就是会出错，要么会漏个等号，要么少加个 1。 不要气馁，因为二分查找其实并不简单。看看 Knuth 大佬（发明 KMP 算法的那位）怎么说的：  Although the basic idea of binary search is comparatively straightforward,the deta">
 <meta property="og:image" content="https://pic.leetcode-cn.com/c53e309f6591906bb643ccb2a1ace7bcff7f1eb3d788ec72979ea717f66baf71.png">
 <meta property="og:image" content="https://pic.leetcode-cn.com/761f2acd823c960125e3dddb56f2d811da9c39455fe3f2ee00d3998048a1d6c9.jpg">
 <meta property="og:image" content="https://pic.leetcode-cn.com/6922fcf9e7ce6faae8f2c60047cb7ebf49a561887e095b46d9ea60aa0e99945b.jpg">
 <meta property="og:image" content="https://pic.leetcode-cn.com/f6b0418e62a8413a383d32d1f9be4130a1a253c3728d7ff7155cf6b626b4a53d.jpg">
 <meta property="og:image" content="https://pic.leetcode-cn.com/7a4f522758ba0a7d7934ec750d1c3121be163919a67924dbcdf0bbef8d63485a.jpg">
 <meta property="article:published_time" content="2020-03-10T12:14:37.000Z">
-<meta property="article:modified_time" content="2020-03-12T10:54:53.924Z">
+<meta property="article:modified_time" content="2020-03-12T10:58:01.817Z">
 <meta property="article:author" content="D0MA4T2">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="lc&amp;nc">
@@ -304,7 +304,10 @@
 </blockquote>
 <p>我相信对很多读者朋友来说，编写二分查找的算法代码属于玄学编程，虽然看起来很简单，就是会出错，要么会漏个等号，要么少加个 1。</p>
 <p>不要气馁，因为二分查找其实并不简单。看看 Knuth 大佬（发明 KMP 算法的那位）怎么说的：</p>
-<p>Although the basic idea of binary search is comparatively straightforward,<br>the details can be surprisingly tricky…<br>这句话可以这样理解：思路很简单，细节是魔鬼。很多人喜欢拿整型溢出的 bug 说事儿，但是二分查找真正的坑根本就不是那个细节问题，而是在于到底要给 mid 加一还是减一，while 里到底用 &lt;= 还是 &lt;。</p>
+<blockquote>
+<p>Although the basic idea of binary search is comparatively straightforward,<br>the details can be surprisingly tricky… </p>
+</blockquote>
+<p>这句话可以这样理解：思路很简单，细节是魔鬼。很多人喜欢拿整型溢出的 bug 说事儿，但是二分查找真正的坑根本就不是那个细节问题，而是在于到底要给 mid 加一还是减一，while 里到底用 &lt;= 还是 &lt;</p>
 <a id="more"></a>
 <p>你要是没有正确理解这些细节，写二分肯定就是玄学编程，有没有 bug 只能靠菩萨保佑。我特意写了一首诗来歌颂该算法，概括本文的主要内容，建议保存：<br><img src="https://pic.leetcode-cn.com/c53e309f6591906bb643ccb2a1ace7bcff7f1eb3d788ec72979ea717f66baf71.png" alt=""></p>
 <p>本文以问答的形式，探究几个最常用的二分查找场景：寻找一个数. 寻找左侧边界. 寻找右侧边界。第一个场景是最简单的算法形式，解决 这道题，后两个场景就是本题。</p>
@@ -400,21 +403,13 @@
 <p>至此，搜索右侧边界的二分查找的两种写法也完成了，其实将「搜索区间」统一成两端都闭反而更容易记忆，你说是吧？</p>
 <h5 id="四-逻辑统一"><a href="#四-逻辑统一" class="headerlink" title="四-逻辑统一"></a>四-逻辑统一</h5><p>来梳理一下这些细节差异的因果逻辑：</p>
 <ul>
-<li>第一个，最基本的二分查找算法：</li>
+<li><p>第一个，最基本的二分查找算法：<br>因为我们初始化 right = nums.length - 1<br>所以决定了我们的「搜索区间」是 [left, right]<br>所以决定了 while (left &lt;= right)<br>同时也决定了 left = mid+1 和 right = mid-1<br>因为我们只需找到一个 target 的索引即可<br>所以当 nums[mid] == target 时可以立即返回</p>
+</li>
+<li><p>第二个，寻找左侧边界的二分查找：<br>因为我们初始化 right = nums.length<br>所以决定了我们的「搜索区间」是 [left, right)<br>所以决定了 while (left &lt; right)<br>同时也决定了 left = mid + 1 和 right = mid<br>因为我们需找到 target 的最左侧索引<br>所以当 nums[mid] == target 时不要立即返回<br>而要收紧右侧边界以锁定左侧边界</p>
+</li>
+<li><p>第三个，寻找右侧边界的二分查找：<br>因为我们初始化 right = nums.length<br>所以决定了我们的「搜索区间」是 [left, right)<br>所以决定了 while (left &lt; right)<br>同时也决定了 left = mid + 1 和 right = mid<br>因为我们需找到 target 的最右侧索引<br>所以当 nums[mid] == target 时不要立即返回<br>而要收紧左侧边界以锁定右侧边界<br>又因为收紧左侧边界时必须 left = mid + 1<br>所以最后无论返回 left 还是 right，必须减一<br>对于寻找左右边界的二分搜索，常见的手法是使用左闭右开的「搜索区间」，我们还根据逻辑将「搜索区间」全都统一成了两端都闭，便于记忆，只要修改两处即可变化出三种写法：</p>
+</li>
 </ul>
-<p>因为我们初始化 right = nums.length - 1<br>所以决定了我们的「搜索区间」是 [left, right]<br>所以决定了 while (left &lt;= right)<br>同时也决定了 left = mid+1 和 right = mid-1</p>
-<p>因为我们只需找到一个 target 的索引即可<br>所以当 nums[mid] == target 时可以立即返回</p>
-<ul>
-<li>第二个，寻找左侧边界的二分查找：</li>
-</ul>
-<p>因为我们初始化 right = nums.length<br>所以决定了我们的「搜索区间」是 [left, right)<br>所以决定了 while (left &lt; right)<br>同时也决定了 left = mid + 1 和 right = mid</p>
-<p>因为我们需找到 target 的最左侧索引<br>所以当 nums[mid] == target 时不要立即返回<br>而要收紧右侧边界以锁定左侧边界</p>
-<ul>
-<li>第三个，寻找右侧边界的二分查找：</li>
-</ul>
-<p>因为我们初始化 right = nums.length<br>所以决定了我们的「搜索区间」是 [left, right)<br>所以决定了 while (left &lt; right)<br>同时也决定了 left = mid + 1 和 right = mid</p>
-<p>因为我们需找到 target 的最右侧索引<br>所以当 nums[mid] == target 时不要立即返回<br>而要收紧左侧边界以锁定右侧边界</p>
-<p>又因为收紧左侧边界时必须 left = mid + 1<br>所以最后无论返回 left 还是 right，必须减一<br>对于寻找左右边界的二分搜索，常见的手法是使用左闭右开的「搜索区间」，我们还根据逻辑将「搜索区间」全都统一成了两端都闭，便于记忆，只要修改两处即可变化出三种写法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">int binary_search(int[] nums, int target) &#123;</span><br><span class="line">    int left &#x3D; 0, right &#x3D; nums.length - 1; </span><br><span class="line">    while(left &lt;&#x3D; right) &#123;</span><br><span class="line">        int mid &#x3D; left + (right - left) &#x2F; 2;</span><br><span class="line">        if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left &#x3D; mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right &#x3D; mid - 1; </span><br><span class="line">        &#125; else if(nums[mid] &#x3D;&#x3D; target) &#123;</span><br><span class="line">            &#x2F;&#x2F; 直接返回</span><br><span class="line">            return mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 直接返回</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int left_bound(int[] nums, int target) &#123;</span><br><span class="line">    int left &#x3D; 0, right &#x3D; nums.length - 1;</span><br><span class="line">    while (left &lt;&#x3D; right) &#123;</span><br><span class="line">        int mid &#x3D; left + (right - left) &#x2F; 2;</span><br><span class="line">        if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left &#x3D; mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right &#x3D; mid - 1;</span><br><span class="line">        &#125; else if (nums[mid] &#x3D;&#x3D; target) &#123;</span><br><span class="line">            &#x2F;&#x2F; 别返回，收缩左侧边界</span><br><span class="line">            right &#x3D; mid - 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 最后要检查 left 越界的情况</span><br><span class="line">    if (left &gt;&#x3D; nums.length || nums[left] !&#x3D; target)</span><br><span class="line">        return -1;</span><br><span class="line">    return left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int right_bound(int[] nums, int target) &#123;</span><br><span class="line">    int left &#x3D; 0, right &#x3D; nums.length - 1;</span><br><span class="line">    while (left &lt;&#x3D; right) &#123;</span><br><span class="line">        int mid &#x3D; left + (right - left) &#x2F; 2;</span><br><span class="line">        if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left &#x3D; mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right &#x3D; mid - 1;</span><br><span class="line">        &#125; else if (nums[mid] &#x3D;&#x3D; target) &#123;</span><br><span class="line">            &#x2F;&#x2F; 别返回，收缩右侧边界</span><br><span class="line">            left &#x3D; mid + 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 最后要检查 right 越界的情况</span><br><span class="line">    if (right &lt; 0 || nums[right] !&#x3D; target)</span><br><span class="line">        return -1;</span><br><span class="line">    return right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如果以上内容你都能理解，那么恭喜你，二分查找算法的细节不过如此。</p>
@@ -423,14 +418,15 @@
 <li>分析二分查找代码时，不要出现 else，全部展开成 else if 方便理解。</li>
 <li>注意「搜索区间」和 while 的终止条件，如果存在漏掉的元素，记得在最后检查。</li>
 <li>如需定义左闭右开的「搜索区间」搜索左右边界，只要在 nums[mid] == target 时做修改即可，搜索右侧时需要减一。</li>
-<li>如果将「搜索区间」全都统一成两端都闭，好记，只要稍改 nums[mid] == target 条件处的代码和返回的逻辑即可，推荐拿小本本记下，作为二分搜索模板。<br>最后，点击我的头像可以查看更多详细题解，希望读者多多点赞，让我感受到你的认可～<br>推荐阅读：</li>
-</ol>
-<ul>
+<li>如果将「搜索区间」全都统一成两端都闭，好记，只要稍改 nums[mid] == target 条件处的代码和返回的逻辑即可，推荐拿小本本记下，作为二分搜索模板。<br>最后，点击我的头像可以查看更多详细题解，希望读者多多点赞，让我感受到你的认可～</li>
+<li>推荐阅读：<ul>
 <li>回溯算法详解</li>
 <li>KMP 算法详解</li>
 <li>LRU 缓存淘汰算法详解</li>
 <li>腾讯面试题详解：编辑距离</li>
 </ul>
+</li>
+</ol>
 <p>PS：我的所有算法文章都已经上传到了 Github 仓库：<a href="https://github.com/labuladong/fucking-algorithm" target="_blank" rel="noopener">fucking-algorithm</a>，共 60 多篇，绝对精品，肯定让你收获满满，求个 star 不过分吧～<br>PPS：我最近精心制作了一份电子书《labuladong的算法小抄》，分为「动态规划」「数据结构」「算法思维」「高频面试」四个章节，目录如下，如有需要可扫码到我的公众号 labuladong 后台回复关键词「pdf」下载：</p>
 <blockquote>
 <p>作者：labuladong<br>链接：<a href="https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/solution/er-fen-cha-zhao-suan-fa-xi-jie-xiang-jie-by-labula/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/solution/er-fen-cha-zhao-suan-fa-xi-jie-xiang-jie-by-labula/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
@@ -446,7 +442,7 @@
         <p><span>本文标题:</span><a href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/">二分查找细节分析</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">D0MA4T2</a></p>
         <p><span>发布时间:</span>2020-03-10, 05:14:37</p>
-        <p><span>最后更新:</span>2020-03-12, 03:54:53</p>
+        <p><span>最后更新:</span>2020-03-12, 03:58:01</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/" title="二分查找细节分析">http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/</a>
             <span class="copy-path" data-clipboard-text="原文: http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/　　作者: D0MA4T2" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

@@ -282,7 +282,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>思路<br>我相信对很多读者朋友来说，编写二分查找的算法代码属于玄学编程，虽然看起来很简单，就是会出错，要么会漏个等号，要么少加个 1。</p>
+              <blockquote>
+<p>思路</p>
+</blockquote>
+<p>我相信对很多读者朋友来说，编写二分查找的算法代码属于玄学编程，虽然看起来很简单，就是会出错，要么会漏个等号，要么少加个 1。</p>
 <p>不要气馁，因为二分查找其实并不简单。看看 Knuth 大佬（发明 KMP 算法的那位）怎么说的：</p>
 <p>Although the basic idea of binary search is comparatively straightforward,<br>the details can be surprisingly tricky…<br>这句话可以这样理解：思路很简单，细节是魔鬼。很多人喜欢拿整型溢出的 bug 说事儿，但是二分查找真正的坑根本就不是那个细节问题，而是在于到底要给 mid 加一还是减一，while 里到底用 &lt;= 还是 &lt;。</p>
           

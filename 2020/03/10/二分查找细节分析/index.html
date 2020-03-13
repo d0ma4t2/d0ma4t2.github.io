@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://pic.leetcode-cn.com/f6b0418e62a8413a383d32d1f9be4130a1a253c3728d7ff7155cf6b626b4a53d.jpg">
 <meta property="og:image" content="https://pic.leetcode-cn.com/7a4f522758ba0a7d7934ec750d1c3121be163919a67924dbcdf0bbef8d63485a.jpg">
 <meta property="article:published_time" content="2020-03-10T12:14:37.000Z">
-<meta property="article:modified_time" content="2020-03-13T12:10:54.232Z">
+<meta property="article:modified_time" content="2020-03-13T12:14:42.607Z">
 <meta property="article:author" content="D0MA4T2">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="lc&amp;nc">
@@ -320,19 +320,18 @@
 
 <p>相信看到这里，大家已经仔细思考过代码了，为什么操作一时b[R+1]要减去p，很简单，因为操作一我只需对[L,R]区间里的数加p，[R+1,n]这个区间里的数没必要加p，所以需要减掉p。</p>
 <p>差分讲解完毕，接下来我们终于要开始今天的正题——二维前缀和了。</p>
-<ul>
-<li>总结：<ul>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><ul>
 <li>对于已知有n个元素的数列A[1~n],我们可以建立记录它每项与前一项的差值的差分数组B：显然：B[1]=A[1]-0;对于整数i∈[2,n],取A[i]-A[i-1]为其差分数组B[i]的值<br><img src="https://img-blog.csdnimg.cn/20190207095650773.png" alt=""></li>
 <li>性质<ul>
-<li>计算数列各项的值：可以发现数列A的第i项的值是可以用其差分数组B的前n项和计算，即A[i]=∑B<a href="1<=j<=i">j</a></li>
+<li>计算数列各项的值：可以发现数列A的第i项的值是可以用其差分数组B的前n项和计算，即A[i]=∑B<a href="1<=j<=i">j</a><ul>
 <li>计算数列的前缀和：第i项的前缀和即为数列前i项的和，那么推导可知<br><img src="https://img-blog.csdnimg.cn/20190207095751867.png" alt=""></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>用途<ul>
 <li>快速处理区间加减操作：如果进行区间加减操作，且修改的区间连续，那么若将[x,y]区间内A[i]各加val，我们就可以只对其差分数组B的x和y这两项进行修改，x项B[x]加val ,y项 B[y+1]减val。</li>
 <li>询问区间和问题：在保证（1）正确修改的基础上，我们可以由性质（2）计算出数列各项的前缀和数组sum各项的值；那么显然，区间[L,R]的和即A[L]+…+A[R] = ans = sum[R]-sum[L-1].</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -496,7 +495,7 @@
         <p><span>本文标题:</span><a href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/">algorithm&amp;summary</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">D0MA4T2</a></p>
         <p><span>发布时间:</span>2020-03-10, 05:14:37</p>
-        <p><span>最后更新:</span>2020-03-13, 05:10:54</p>
+        <p><span>最后更新:</span>2020-03-13, 05:14:42</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/" title="algorithm&amp;summary">http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/</a>
             <span class="copy-path" data-clipboard-text="原文: http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/　　作者: D0MA4T2" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -526,7 +525,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#快速处理区间加减问题-前缀和、二维前缀和与差分"><span class="toc-number">1.</span> <span class="toc-text">快速处理区间加减问题-前缀和、二维前缀和与差分</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#前言"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二维"><span class="toc-number">1.2.</span> <span class="toc-text">二维</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#差分"><span class="toc-number">1.3.</span> <span class="toc-text">差分</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二分查找细节分析"><span class="toc-number">2.</span> <span class="toc-text">二分查找细节分析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#零-二分查找框架"><span class="toc-number">2.1.</span> <span class="toc-text">零-二分查找框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#一-寻找一个数（基本的二分搜索）"><span class="toc-number">2.2.</span> <span class="toc-text">一-寻找一个数（基本的二分搜索）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二-寻找左侧边界的二分搜索"><span class="toc-number">2.3.</span> <span class="toc-text">二-寻找左侧边界的二分搜索</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三-寻找右侧边界的二分查找"><span class="toc-number">2.4.</span> <span class="toc-text">三-寻找右侧边界的二分查找</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#四-逻辑统一"><span class="toc-number">2.5.</span> <span class="toc-text">四-逻辑统一</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#快速处理区间加减问题-前缀和、二维前缀和与差分"><span class="toc-number">1.</span> <span class="toc-text">快速处理区间加减问题-前缀和、二维前缀和与差分</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#前言"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#总结"><span class="toc-number">1.2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二维"><span class="toc-number">1.3.</span> <span class="toc-text">二维</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#差分"><span class="toc-number">1.4.</span> <span class="toc-text">差分</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二分查找细节分析"><span class="toc-number">2.</span> <span class="toc-text">二分查找细节分析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#零-二分查找框架"><span class="toc-number">2.1.</span> <span class="toc-text">零-二分查找框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#一-寻找一个数（基本的二分搜索）"><span class="toc-number">2.2.</span> <span class="toc-text">一-寻找一个数（基本的二分搜索）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二-寻找左侧边界的二分搜索"><span class="toc-number">2.3.</span> <span class="toc-text">二-寻找左侧边界的二分搜索</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三-寻找右侧边界的二分查找"><span class="toc-number">2.4.</span> <span class="toc-text">三-寻找右侧边界的二分查找</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#四-逻辑统一"><span class="toc-number">2.5.</span> <span class="toc-text">四-逻辑统一</span></a></li></ol></li></ol>
         
     </div>
     <style>

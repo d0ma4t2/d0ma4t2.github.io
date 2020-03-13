@@ -21,6 +21,8 @@
 <meta property="og:url" content="http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="D0MA4T2&#39;s Blog">
 <meta property="og:description" content="快速处理区间加减问题-前缀和、二维前缀和与差分前言在了解二维前缀和之前，我们首先需要了解一下什么是前缀和。 如果我给你一串长度为n的数列a1,a2,a3……an,再给出m个询问，每次询问给出L，R两个数，要求给出区间[L,R]里的数的和，你会怎么做，若是没有了解过前缀和的人看到这道题的想法可能是对于m次询问，我每次都遍历一遍它给的区间，计算出答案，这样子的方法固然没错，但是其时间复杂度达到了O(n">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190207095650773.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190207095751867.png">
 <meta property="og:image" content="https://img-blog.csdn.net/20180817151423333?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tfUl9mb3JldmVy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img-blog.csdn.net/20180817161822690?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tfUl9mb3JldmVy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://pic.leetcode-cn.com/c53e309f6591906bb643ccb2a1ace7bcff7f1eb3d788ec72979ea717f66baf71.png">
@@ -29,12 +31,12 @@
 <meta property="og:image" content="https://pic.leetcode-cn.com/f6b0418e62a8413a383d32d1f9be4130a1a253c3728d7ff7155cf6b626b4a53d.jpg">
 <meta property="og:image" content="https://pic.leetcode-cn.com/7a4f522758ba0a7d7934ec750d1c3121be163919a67924dbcdf0bbef8d63485a.jpg">
 <meta property="article:published_time" content="2020-03-10T12:14:37.000Z">
-<meta property="article:modified_time" content="2020-03-13T12:04:33.573Z">
+<meta property="article:modified_time" content="2020-03-13T12:10:54.232Z">
 <meta property="article:author" content="D0MA4T2">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="lc&amp;nc">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdn.net/20180817151423333?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tfUl9mb3JldmVy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190207095650773.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -318,6 +320,22 @@
 
 <p>相信看到这里，大家已经仔细思考过代码了，为什么操作一时b[R+1]要减去p，很简单，因为操作一我只需对[L,R]区间里的数加p，[R+1,n]这个区间里的数没必要加p，所以需要减掉p。</p>
 <p>差分讲解完毕，接下来我们终于要开始今天的正题——二维前缀和了。</p>
+<ul>
+<li>总结：<ul>
+<li>对于已知有n个元素的数列A[1~n],我们可以建立记录它每项与前一项的差值的差分数组B：显然：B[1]=A[1]-0;对于整数i∈[2,n],取A[i]-A[i-1]为其差分数组B[i]的值<br><img src="https://img-blog.csdnimg.cn/20190207095650773.png" alt=""></li>
+<li>性质<ul>
+<li>计算数列各项的值：可以发现数列A的第i项的值是可以用其差分数组B的前n项和计算，即A[i]=∑B<a href="1<=j<=i">j</a></li>
+<li>计算数列的前缀和：第i项的前缀和即为数列前i项的和，那么推导可知<br><img src="https://img-blog.csdnimg.cn/20190207095751867.png" alt=""></li>
+</ul>
+</li>
+<li>用途<ul>
+<li>快速处理区间加减操作：如果进行区间加减操作，且修改的区间连续，那么若将[x,y]区间内A[i]各加val，我们就可以只对其差分数组B的x和y这两项进行修改，x项B[x]加val ,y项 B[y+1]减val。</li>
+<li>询问区间和问题：在保证（1）正确修改的基础上，我们可以由性质（2）计算出数列各项的前缀和数组sum各项的值；那么显然，区间[L,R]的和即A[L]+…+A[R] = ans = sum[R]-sum[L-1].</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h5 id="二维"><a href="#二维" class="headerlink" title="二维"></a>二维</h5><p>还是以小问题的形式来讲解二维前缀和吧。</p>
 <p>给定一个n*m大小的矩阵a，有q次询问，每次询问给定x1,y1,x2,y2四个数，求以(x1,y1)为左上角坐标和(x2,y2)为右下角坐标的子矩阵的所有元素和。注意仍然包含左上角和右下角的元素。</p>
 <p>怎么做呢？为了方便你们理解，我画个图吧。<br><img src="https://img-blog.csdn.net/20180817151423333?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tfUl9mb3JldmVy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt=""></p>
@@ -478,7 +496,7 @@
         <p><span>本文标题:</span><a href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/">algorithm&amp;summary</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">D0MA4T2</a></p>
         <p><span>发布时间:</span>2020-03-10, 05:14:37</p>
-        <p><span>最后更新:</span>2020-03-13, 05:04:33</p>
+        <p><span>最后更新:</span>2020-03-13, 05:10:54</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/" title="algorithm&amp;summary">http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/</a>
             <span class="copy-path" data-clipboard-text="原文: http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/　　作者: D0MA4T2" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

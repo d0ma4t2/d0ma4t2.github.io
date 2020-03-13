@@ -15,12 +15,12 @@
 
 
 
-<meta name="description" content="前缀和、二维前缀和与差分前言在了解二维前缀和之前，我们首先需要了解一下什么是前缀和。 如果我给你一串长度为n的数列a1,a2,a3……an,再给出m个询问，每次询问给出L，R两个数，要求给出区间[L,R]里的数的和，你会怎么做，若是没有了解过前缀和的人看到这道题的想法可能是对于m次询问，我每次都遍历一遍它给的区间，计算出答案，这样子的方法固然没错，但是其时间复杂度达到了O(n*m)，如果数据量稍微">
+<meta name="description" content="快速处理区间加减问题-前缀和、二维前缀和与差分前言在了解二维前缀和之前，我们首先需要了解一下什么是前缀和。 如果我给你一串长度为n的数列a1,a2,a3……an,再给出m个询问，每次询问给出L，R两个数，要求给出区间[L,R]里的数的和，你会怎么做，若是没有了解过前缀和的人看到这道题的想法可能是对于m次询问，我每次都遍历一遍它给的区间，计算出答案，这样子的方法固然没错，但是其时间复杂度达到了O(n">
 <meta property="og:type" content="article">
 <meta property="og:title" content="algorithm&amp;summary">
 <meta property="og:url" content="http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="D0MA4T2&#39;s Blog">
-<meta property="og:description" content="前缀和、二维前缀和与差分前言在了解二维前缀和之前，我们首先需要了解一下什么是前缀和。 如果我给你一串长度为n的数列a1,a2,a3……an,再给出m个询问，每次询问给出L，R两个数，要求给出区间[L,R]里的数的和，你会怎么做，若是没有了解过前缀和的人看到这道题的想法可能是对于m次询问，我每次都遍历一遍它给的区间，计算出答案，这样子的方法固然没错，但是其时间复杂度达到了O(n*m)，如果数据量稍微">
+<meta property="og:description" content="快速处理区间加减问题-前缀和、二维前缀和与差分前言在了解二维前缀和之前，我们首先需要了解一下什么是前缀和。 如果我给你一串长度为n的数列a1,a2,a3……an,再给出m个询问，每次询问给出L，R两个数，要求给出区间[L,R]里的数的和，你会怎么做，若是没有了解过前缀和的人看到这道题的想法可能是对于m次询问，我每次都遍历一遍它给的区间，计算出答案，这样子的方法固然没错，但是其时间复杂度达到了O(n">
 <meta property="og:image" content="https://img-blog.csdn.net/20180817151423333?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tfUl9mb3JldmVy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img-blog.csdn.net/20180817161822690?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tfUl9mb3JldmVy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://pic.leetcode-cn.com/c53e309f6591906bb643ccb2a1ace7bcff7f1eb3d788ec72979ea717f66baf71.png">
@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://pic.leetcode-cn.com/f6b0418e62a8413a383d32d1f9be4130a1a253c3728d7ff7155cf6b626b4a53d.jpg">
 <meta property="og:image" content="https://pic.leetcode-cn.com/7a4f522758ba0a7d7934ec750d1c3121be163919a67924dbcdf0bbef8d63485a.jpg">
 <meta property="article:published_time" content="2020-03-10T12:14:37.000Z">
-<meta property="article:modified_time" content="2020-03-13T10:43:50.847Z">
+<meta property="article:modified_time" content="2020-03-13T12:00:30.604Z">
 <meta property="article:author" content="D0MA4T2">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="lc&amp;nc">
@@ -301,7 +301,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h4 id="前缀和、二维前缀和与差分"><a href="#前缀和、二维前缀和与差分" class="headerlink" title="前缀和、二维前缀和与差分"></a>前缀和、二维前缀和与差分</h4><h5 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h5><p>在了解二维前缀和之前，我们首先需要了解一下什么是前缀和。</p>
+        <h4 id="快速处理区间加减问题-前缀和、二维前缀和与差分"><a href="#快速处理区间加减问题-前缀和、二维前缀和与差分" class="headerlink" title="快速处理区间加减问题-前缀和、二维前缀和与差分"></a>快速处理区间加减问题-前缀和、二维前缀和与差分</h4><h5 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h5><p>在了解二维前缀和之前，我们首先需要了解一下什么是前缀和。</p>
 <p>如果我给你一串长度为n的数列a1,a2,a3……an,再给出m个询问，每次询问给出L，R两个数，要求给出区间[L,R]里的数的和，你会怎么做，若是没有了解过前缀和的人看到这道题的想法可能是对于m次询问，我每次都遍历一遍它给的区间，计算出答案，这样子的方法固然没错，但是其时间复杂度达到了O(n*m)，如果数据量稍微大一点就有可能超时，而我们如果使用前缀和的方法来做的话就能够将时间复杂度降到O(n+m),大大节省了运算时间。至于怎么用，请看下面一小段代码</p>
 <a id="more"></a>
 
@@ -478,7 +478,7 @@
         <p><span>本文标题:</span><a href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/">algorithm&amp;summary</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">D0MA4T2</a></p>
         <p><span>发布时间:</span>2020-03-10, 05:14:37</p>
-        <p><span>最后更新:</span>2020-03-13, 03:43:50</p>
+        <p><span>最后更新:</span>2020-03-13, 05:00:30</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/" title="algorithm&amp;summary">http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/</a>
             <span class="copy-path" data-clipboard-text="原文: http://hblog.colorfulboxes.cn/2020/03/10/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90/　　作者: D0MA4T2" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -508,7 +508,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前缀和、二维前缀和与差分"><span class="toc-number">1.</span> <span class="toc-text">前缀和、二维前缀和与差分</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#前言"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二维"><span class="toc-number">1.2.</span> <span class="toc-text">二维</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#差分"><span class="toc-number">1.3.</span> <span class="toc-text">差分</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二分查找细节分析"><span class="toc-number">2.</span> <span class="toc-text">二分查找细节分析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#零-二分查找框架"><span class="toc-number">2.1.</span> <span class="toc-text">零-二分查找框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#一-寻找一个数（基本的二分搜索）"><span class="toc-number">2.2.</span> <span class="toc-text">一-寻找一个数（基本的二分搜索）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二-寻找左侧边界的二分搜索"><span class="toc-number">2.3.</span> <span class="toc-text">二-寻找左侧边界的二分搜索</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三-寻找右侧边界的二分查找"><span class="toc-number">2.4.</span> <span class="toc-text">三-寻找右侧边界的二分查找</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#四-逻辑统一"><span class="toc-number">2.5.</span> <span class="toc-text">四-逻辑统一</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#快速处理区间加减问题-前缀和、二维前缀和与差分"><span class="toc-number">1.</span> <span class="toc-text">快速处理区间加减问题-前缀和、二维前缀和与差分</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#前言"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二维"><span class="toc-number">1.2.</span> <span class="toc-text">二维</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#差分"><span class="toc-number">1.3.</span> <span class="toc-text">差分</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二分查找细节分析"><span class="toc-number">2.</span> <span class="toc-text">二分查找细节分析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#零-二分查找框架"><span class="toc-number">2.1.</span> <span class="toc-text">零-二分查找框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#一-寻找一个数（基本的二分搜索）"><span class="toc-number">2.2.</span> <span class="toc-text">一-寻找一个数（基本的二分搜索）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二-寻找左侧边界的二分搜索"><span class="toc-number">2.3.</span> <span class="toc-text">二-寻找左侧边界的二分搜索</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三-寻找右侧边界的二分查找"><span class="toc-number">2.4.</span> <span class="toc-text">三-寻找右侧边界的二分查找</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#四-逻辑统一"><span class="toc-number">2.5.</span> <span class="toc-text">四-逻辑统一</span></a></li></ol></li></ol>
         
     </div>
     <style>

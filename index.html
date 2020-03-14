@@ -282,7 +282,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h4 id="快速处理区间加减问题-前缀和、二维前缀和与差分"><a href="#快速处理区间加减问题-前缀和、二维前缀和与差分" class="headerlink" title="快速处理区间加减问题-前缀和、二维前缀和与差分"></a>快速处理区间加减问题-前缀和、二维前缀和与差分</h4><h5 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h5><p>在了解二维前缀和之前，我们首先需要了解一下什么是前缀和。</p>
+              <h4 id="Roadmap"><a href="#Roadmap" class="headerlink" title="Roadmap"></a>Roadmap</h4><p><img src="http://blog.colorfulboxes.cn/mmexport1584109396443.jpg" alt="Roadmap"></p>
+<h4 id="快速处理区间加减问题-前缀和、二维前缀和与差分"><a href="#快速处理区间加减问题-前缀和、二维前缀和与差分" class="headerlink" title="快速处理区间加减问题-前缀和、二维前缀和与差分"></a>快速处理区间加减问题-前缀和、二维前缀和与差分</h4><h5 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h5><p>在了解二维前缀和之前，我们首先需要了解一下什么是前缀和。</p>
 <p>如果我给你一串长度为n的数列a1,a2,a3……an,再给出m个询问，每次询问给出L，R两个数，要求给出区间[L,R]里的数的和，你会怎么做，若是没有了解过前缀和的人看到这道题的想法可能是对于m次询问，我每次都遍历一遍它给的区间，计算出答案，这样子的方法固然没错，但是其时间复杂度达到了O(n*m)，如果数据量稍微大一点就有可能超时，而我们如果使用前缀和的方法来做的话就能够将时间复杂度降到O(n+m),大大节省了运算时间。至于怎么用，请看下面一小段代码</p>
           
       
